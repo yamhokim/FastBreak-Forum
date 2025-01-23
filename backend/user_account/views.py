@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from .serializers import UserRegistrationSerializer, BlogSerializer
+from .serializers import UserRegistrationSerializer, BlogSerializer, UserProfileUpdateSerializer
 from .models import Blog
 from rest_framework.response import Response
 from rest_framework import status
@@ -14,6 +14,18 @@ def register_user(request):
 	if serializer.is_valid():
 		serializer.save()
 		return Response(serializer.data)
+	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["PUT"])
+@permission_classes([IsAuthenticated])
+def update_user(request):
+	user = request.user
+	serializer = UserProfileUpdateSerializer(user, data=request.data)
+
+	if serializer.is_valid():
+		serializer.save()
+		return Response(serializer.data)
+
 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 @api_view(["POST"])
