@@ -1,5 +1,6 @@
 from django.shortcuts import render
 from .serializers import UserRegistrationSerializer, BlogSerializer
+from .models import Blog
 from rest_framework.response import Response
 from rest_framework import status
 from rest_framework.permissions import IsAuthenticated
@@ -26,3 +27,9 @@ def create_blog(request):
 		serializer.save(author=user)
 		return Response(serializer.data)
 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+@api_view(["GET"])
+def blog_list(request):
+	blogs = Blog.objects.all()
+	serializer = BlogSerializer(blogs, many=True)
+	return Response(serializer.data)
