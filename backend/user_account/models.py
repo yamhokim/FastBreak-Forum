@@ -18,12 +18,13 @@ class CustomUser(AbstractUser):
     
 class Blog(models.Model):
 
-    CATEGORY = (("Technology", "Technology"),
-                ("Economy", "Economy"),
-                ("Business", "Business"),
-                ("Sports" "Sports"),
-                ("Lifestyle", "Lifestyle")
-                )
+    CATEGORY = [
+        ("Technology", "Technology"),
+        ("Economy", "Economy"),
+        ("Business", "Business"),
+        ("Sports", "Sports"),
+        ("Lifestyle", "Lifestyle")
+    ]
     
     title = models.CharField(max_length=255)
     slug = models.SlugField(max_length=255, unique=True, blank=True)
