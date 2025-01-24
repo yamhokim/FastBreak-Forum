@@ -1,10 +1,7 @@
-import { Button } from "@/components/ui/button";
-import "./index.css";
+import React from "react";
 
-export default function Home() {
-  return (
-    <div>
-      <Button className="bg-blue-800">Click me</Button>
-    </div>
-  );
-}
+const App = () => {
+  return <div>App</div>;
+};
+
+export default App;
