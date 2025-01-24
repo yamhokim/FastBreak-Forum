@@ -22,7 +22,12 @@ class UserRegistrationSerializer(serializers.ModelSerializer):
         new_user.set_password(password)
         new_user.save()
         return new_user
-        
+
+class UserProfileUpdateSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = get_user_model()
+        fields = ["id", "email", "username", "first_name", "last_name", "bio", "profile_picture", "facebook", "youtube", "instagram", "twitter"]
+
 class AuthorSerializer(serializers.ModelSerializer):
     class Meta:
         model = get_user_model()
