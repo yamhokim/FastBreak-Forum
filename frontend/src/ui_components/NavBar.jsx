@@ -1,5 +1,6 @@
 import React from "react";
 import { Switch } from "@/components/ui/switch";
+import { FaHamburger } from "react-icons/fa";
 
 const NavBar = () => {
   return (
