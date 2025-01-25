@@ -1,4 +1,6 @@
-import React from "react";
+import Badge from "./Badge";
+import CardFooter from "./CardFooter";
+import thumbnail from "../images/goat.jpg";
 
 const BlogCard = () => {
   return (
@@ -9,6 +11,13 @@ const BlogCard = () => {
           className="w-full h-full object-cover rounded-lg"
         />
       </div>
+
+      <Badge />
+      <h3 className="font-semibold leading-normal text-[#181A2A] mb-0 dark:text-white">
+        Why Lebron James is the Undisputed Goat
+      </h3>
+
+      <CardFooter />
     </div>
   );
 };
