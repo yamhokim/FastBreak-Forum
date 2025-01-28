@@ -2,7 +2,7 @@ import { Switch } from "@/components/ui/switch";
 import { FaBasketball } from "react-icons/fa6";
 import ResponsiveNavBar from "./ResponsiveNavBar";
 import { useState } from "react";
-import { Link } from "react-router-dom";
+import { Link, NavLink } from "react-router-dom";
 
 const NavBar = () => {
   const [showNavBar, setShowNavBar] = useState(false);
@@ -15,7 +15,12 @@ const NavBar = () => {
         </Link>
         <ul className="flex items-center  justify-end gap-9 text-[#3B3C4A] lg:flex-1 max-md:hidden dark:text-[#FFFFFF]">
           <li>
-            <Link to="/profile">Hi, Lebron</Link>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "")}
+              to="/profile"
+            >
+              Hi, Lebron
+            </NavLink>
           </li>
 
           <li>Logout</li>
