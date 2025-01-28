@@ -15,7 +15,9 @@ const Hero = () => {
         </div>
 
         <span>
-          <p className="text-[18px] text-[#181A2A] dark:text-white">John Doe</p>
+          <p className="text-[18px] text-[#181A2A] dark:text-white">
+            Lebron James
+          </p>
           <p className="text-[14px] text-[#696A75] font-thin dark:text-[#BABABF]">
             Power Forward for the Los Angeles Lakers
           </p>

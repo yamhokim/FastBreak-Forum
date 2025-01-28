@@ -1,5 +1,5 @@
 import { Switch } from "@/components/ui/switch";
-import { FaHamburger } from "react-icons/fa";
+import { FaBasketball } from "react-icons/fa6";
 import ResponsiveNavBar from "./ResponsiveNavBar";
 import { useState } from "react";
 
@@ -13,7 +13,7 @@ const NavBar = () => {
           FastBreak Forum
         </a>
         <ul className="flex items-center  justify-end gap-9 text-[#3B3C4A] lg:flex-1 max-md:hidden dark:text-[#FFFFFF]">
-          <li>Hi, Clinton</li>
+          <li>Hi, Lebron</li>
 
           <li>Logout</li>
           <li>Login</li>
@@ -22,7 +22,7 @@ const NavBar = () => {
         </ul>
 
         <Switch />
-        <FaHamburger
+        <FaBasketball
           className="text-2xl cursor-pointer hidden max-md:block dark:text-white"
           onClick={() => setShowNavBar((curr) => !curr)}
         />
