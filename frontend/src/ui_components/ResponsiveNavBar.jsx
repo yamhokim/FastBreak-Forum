@@ -1,5 +1,3 @@
-import React from "react";
-
 const ResponsiveNavBar = () => {
   return (
     <nav className="max-container padding-x py-6 max-md:block hidden dark:text-[#FFFFFF]">

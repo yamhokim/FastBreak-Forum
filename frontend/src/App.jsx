@@ -1,7 +1,3 @@
-import NavBar from "./ui_components/navbar";
-import Header from "./ui_components/Header";
-import BlogContainer from "./ui_components/BlogContainer";
-import Footer from "./ui_components/Footer";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
 import AppLayout from "./ui_components/AppLayout";
 import HomePage from "./pages/HomePage";
