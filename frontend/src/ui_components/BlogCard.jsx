@@ -1,6 +1,7 @@
 import Badge from "./Badge";
 import CardFooter from "./CardFooter";
 import thumbnail from "../images/goat.jpg";
+import { Link } from "react-router-dom";
 
 const BlogCard = () => {
   return (
@@ -13,9 +14,11 @@ const BlogCard = () => {
       </div>
 
       <Badge />
-      <h3 className="font-semibold leading-normal text-[#181A2A] mb-0 dark:text-white">
-        Why Lebron James is the Undisputed Goat
-      </h3>
+      <Link to="/detail">
+        <h3 className="font-semibold leading-normal text-[#181A2A] mb-0 dark:text-white">
+          Why Lebron James is the Undisputed Goat
+        </h3>
+      </Link>
 
       <CardFooter />
     </div>
