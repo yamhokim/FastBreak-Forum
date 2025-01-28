@@ -1,4 +1,3 @@
-import React from "react";
 import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
 import profile_pic from "../images/king_bron.jpg";
