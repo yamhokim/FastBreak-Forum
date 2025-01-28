@@ -4,7 +4,7 @@ import ResponsiveNavBar from "./ResponsiveNavBar";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const NavBar = () => {
+const NavBar = ({ darkMode, handleDarkMode }) => {
   const [showNavBar, setShowNavBar] = useState(false);
 
   return (
@@ -29,10 +29,12 @@ const NavBar = () => {
           <li className="font-semibold">Create post</li>
         </ul>
 
-        <Switch />
+        <Switch onCheckedChange={handleDarkMode} checked={darkMode} />
         <FaBasketball
           className="text-2xl cursor-pointer hidden max-md:block dark:text-white"
-          onClick={() => setShowNavBar((curr) => !curr)}
+          onClick={() => {
+            setShowNavBar((curr) => !curr);
+          }}
         />
       </nav>
 
