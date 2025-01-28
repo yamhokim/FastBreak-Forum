@@ -22,7 +22,7 @@ const BlogCard = ({ blog }) => {
         </h3>
       </Link>
 
-      <CardFooter />
+      <CardFooter blog={blog} />
     </div>
   );
 };
