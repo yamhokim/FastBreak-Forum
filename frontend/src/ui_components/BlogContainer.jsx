@@ -1,7 +1,7 @@
 import BlogCard from "./BlogCard";
 import Spinner from "./Spinner";
 
-const BlogContainer = ({ isPending }) => {
+const BlogContainer = ({ isPending, blogs }) => {
   if (isPending) {
     return <Spinner />;
   } else {
@@ -12,13 +12,9 @@ const BlogContainer = ({ isPending }) => {
         </h2>
 
         <div className="flex items-center gap-6 justify-center flex-wrap">
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
-
-          <BlogCard />
-          <BlogCard />
-          <BlogCard />
+          {blogs.map((blog) => (
+            <BlogCard key={blog.id} blog={blog} />
+          ))}
         </div>
       </section>
     );

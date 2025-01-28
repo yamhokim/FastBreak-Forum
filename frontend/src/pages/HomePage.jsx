@@ -14,12 +14,12 @@ const HomePage = () => {
     queryFn: getBlogs,
   });
 
-  console.log(blogs);
+  // console.log(blogs);
 
   return (
     <>
       <Header />
-      <BlogContainer isPending={isPending} />
+      <BlogContainer isPending={isPending} blogs={blogs} />
     </>
   );
 };
