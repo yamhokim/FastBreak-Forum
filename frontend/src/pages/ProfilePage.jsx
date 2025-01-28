@@ -1,7 +1,14 @@
+import BlogContainer from "@/ui_components/BlogContainer";
+import Hero from "@/ui_components/Hero";
 import React from "react";
 
 const ProfilePage = () => {
-  return <div>ProfilePage</div>;
+  return (
+    <>
+      <Hero />
+      <BlogContainer />
+    </>
+  );
 };
 
 export default ProfilePage;
