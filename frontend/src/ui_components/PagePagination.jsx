@@ -16,6 +16,7 @@ const PagePagination = ({
   decreasePage,
 }) => {
   const numbers = Array.from({ length: numPages }, (_, i) => i + 1);
+  console.log(numbers);
   const firstPageNum = numbers[0];
   const lastPageNum = numbers[numbers.length - 1];
 

@@ -7,10 +7,6 @@ from rest_framework.permissions import IsAuthenticated
 from rest_framework.decorators import api_view, permission_classes
 from rest_framework.pagination import PageNumberPagination
 
-class BlogListPagination(PageNumberPagination):
-	page_size = 4
-	page_size_query_param = 'page_size'
-
 @api_view(["POST"])
 def register_user(request):
 	print(request.data)
@@ -44,6 +40,11 @@ def create_blog(request):
 		serializer.save(author=user)
 		return Response(serializer.data)
 	return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+
+class BlogListPagination(PageNumberPagination):
+	page_size = 6
+	page_size_query_param = 'page_size'
 
 @api_view(["GET"])
 def blog_list(request):

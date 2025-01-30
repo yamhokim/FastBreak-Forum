@@ -7,7 +7,7 @@ import { useState } from "react";
 
 const HomePage = () => {
   const [page, setPage] = useState(1);
-  const blogsPerPage = 4;
+  const blogsPerPage = 6;
 
   const { isPending, isError, data, error } = useQuery({
     queryKey: ["blogs", page],
@@ -21,7 +21,6 @@ const HomePage = () => {
 
   function handleSetPage(value) {
     setPage(value);
-    console.log(page);
   }
 
   function increasePage(value) {
