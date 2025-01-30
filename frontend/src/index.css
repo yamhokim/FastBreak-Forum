@@ -5,7 +5,7 @@
 @tailwind utilities;
 
 * {
-  @apply transition-all duration-500 font-[Ubuntu];
+  @apply transition-all duration-200 font-[Ubuntu];
 }
 
 @layer components {

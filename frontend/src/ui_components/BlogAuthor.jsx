@@ -1,7 +1,8 @@
+import profile_pic from "../images/king_bron.jpg";
 import { BASE_URL } from "@/api";
 import { FormatDate } from "@/services/formatDate";
 
-const CardFooter = ({ blog }) => {
+const BlogAuthor = ({ blog }) => {
   return (
     <div className="flex items-center gap-4">
       <span className="flex items-center gap-2">
@@ -12,16 +13,16 @@ const CardFooter = ({ blog }) => {
           />
         </div>
 
-        <small className="text-[#97989F] text-[12px] font-semibold">
+        <small className="text-[#696A75] text-[14px]">
           {blog.author.first_name} {blog.author.last_name}
         </small>
       </span>
 
-      <small className="text-[#97989F] text-[12px] font-semibold ml-3">
+      <small className="text-[#696A75] text-[14px] ml-3">
         {FormatDate(blog.created_at)}
       </small>
     </div>
   );
 };
 
-export default CardFooter;
+export default BlogAuthor;

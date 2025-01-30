@@ -30,7 +30,7 @@ const Footer = () => {
 
         <div className="text-[#181A2A] text-[14px] flex flex-col gap-4 px-4 max-md:items-center">
           <p className="font-semibold text-[16px] dark:text-white">Category</p>
-          <ul className="flex flex-col gap-4 text-[#3B3C4A] max-md:items-center dark:text-[#97989F">
+          <ul className="flex flex-col gap-4 text-[#3B3C4A] max-md:items-center dark:text-[#97989F]">
             <li>LifeStyle</li>
             <li>Technology</li>
             <li>Travel</li>

@@ -1,4 +1,3 @@
-import React from "react";
 import banner from "../images/king_bron.jpg";
 
 const Header = () => {
