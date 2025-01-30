@@ -8,7 +8,13 @@ import {
   PaginationPrevious,
 } from "@/components/ui/pagination";
 
-const PagePagination = ({ numPages, handleSetPage, page }) => {
+const PagePagination = ({
+  numPages,
+  handleSetPage,
+  page,
+  increasePage,
+  decreasePage,
+}) => {
   const numbers = Array.from({ length: numPages }, (_, i) => i + 1);
   const firstPageNum = numbers[0];
   const lastPageNum = numbers[numbers.length - 1];
@@ -17,7 +23,7 @@ const PagePagination = ({ numPages, handleSetPage, page }) => {
     <Pagination className="my-6 dark:text-white">
       <PaginationContent>
         {page === firstPageNum || (
-          <PaginationItem>
+          <PaginationItem onClick={decreasePage}>
             <PaginationPrevious href="#" />
           </PaginationItem>
         )}
@@ -35,7 +41,7 @@ const PagePagination = ({ numPages, handleSetPage, page }) => {
         ))}
 
         {page === lastPageNum || (
-          <PaginationItem>
+          <PaginationItem onClick={increasePage}>
             <PaginationNext href="#" />
           </PaginationItem>
         )}

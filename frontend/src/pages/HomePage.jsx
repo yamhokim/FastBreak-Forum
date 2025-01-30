@@ -24,6 +24,14 @@ const HomePage = () => {
     console.log(page);
   }
 
+  function increasePage(value) {
+    setPage((curr) => curr + 1);
+  }
+
+  function decreasePage(value) {
+    setPage((curr) => curr - 1);
+  }
+
   return (
     <>
       <Header />
@@ -32,6 +40,8 @@ const HomePage = () => {
         numPages={numPages}
         handleSetPage={handleSetPage}
         page={page}
+        increasePage={increasePage}
+        decreasePage={decreasePage}
       />
     </>
   );
