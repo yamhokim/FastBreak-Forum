@@ -43,7 +43,7 @@ const DetailPage = () => {
           src={`${BASE_URL}${blog.featured_image}`}
         />
       </div>
-      <p className="text-[16px] leading-[2rem] text-justify text-[#3B3C4A] dark:text=[#BABABF]">
+      <p className="text-[16px] leading-[2rem] text-justify text-[#3B3C4A] dark:text-[#FFFFFF]">
         {blog.contents}
       </p>
     </div>
