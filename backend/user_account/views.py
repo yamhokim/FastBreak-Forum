@@ -81,3 +81,9 @@ def delete_blog(request, pk):
 	
 	blog.delete()
 	return Response({"message": "Blog deleted successfully"}, status=status.HTTP_204_NO_CONTENT)
+
+@api_view(["GET"])
+def get_blog(request, slug):
+	blog = Blog.objects.get(slug=slug)
+	serializer = BlogSerializer(blog)
+	return Response(serializer.data)
