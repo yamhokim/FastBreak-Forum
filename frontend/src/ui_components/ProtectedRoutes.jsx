@@ -1,5 +1,5 @@
 import { jwtDecode } from "jwt-decode";
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import Spinner from "./Spinner";
 import { Navigate } from "react-router-dom";
 import api from "@/api";

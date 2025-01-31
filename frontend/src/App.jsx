@@ -7,6 +7,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import SignUpPage from "./pages/SignUpPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import LoginPage from "./pages/LoginPage";
+import ProtectedRoutes from "./ui_components/ProtectedRoutes";
 
 const queryClient = new QueryClient();
 
@@ -20,7 +21,15 @@ const App = () => {
             <Route path="blogs/:slug" element={<DetailPage />} />
             <Route path="signup" element={<SignUpPage />} />
             <Route path="profile" element={<ProfilePage />} />
-            <Route path="create" element={<CreatePostPage />} />
+            <Route
+              path="create"
+              element={
+                <ProtectedRoutes>
+                  {" "}
+                  <CreatePostPage />
+                </ProtectedRoutes>
+              }
+            />
             <Route path="login" element={<LoginPage />} />
           </Route>
         </Routes>
