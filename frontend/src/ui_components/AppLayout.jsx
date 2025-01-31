@@ -2,6 +2,7 @@ import NavBar from "./NavBar";
 import Footer from "./Footer";
 import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
+import { ToastContainer } from "react-toastify";
 
 const AppLayout = () => {
   useEffect(function () {
@@ -24,6 +25,7 @@ const AppLayout = () => {
     <div className={darkMode ? "dark" : ""}>
       <main className="w-full bg-[#FFFFFF] dark:bg-[#181A2A]">
         <NavBar darkMode={darkMode} handleDarkMode={handleDarkMode} />
+        <ToastContainer />
         <Outlet />
         <Footer />
       </main>
