@@ -24,9 +24,19 @@ export async function registerUser(data) {
     return response.data;
   } catch (error) {
     console.log(error);
-    if (error.status == 400) {
-      throw new Error("Username already exists");
+
+    if (error.response && error.response.status === 400) {
+      const errorData = error.response.data;
+
+      if (errorData.username) {
+        throw new Error("Username already exists");
+      } else if (errorData.email) {
+        throw new Error("Email already exists");
+      } else {
+        throw new Error("Invalid registration details");
+      }
     }
-    throw new Error(error);
+
+    throw new Error(error.message || "An unexpected error occurred");
   }
 }

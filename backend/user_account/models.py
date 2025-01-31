@@ -6,6 +6,7 @@ from django.utils import timezone
 
 # Create your models here.
 class CustomUser(AbstractUser):
+    email = models.EmailField(unique=True)
     bio = models.TextField(blank=True, null=True)
     profile_picture = models.ImageField(upload_to="profile_img", blank=True, null=True)
     facebook = models.URLField(max_length=255, blank=True, null=True)
