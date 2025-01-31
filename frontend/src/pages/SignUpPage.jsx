@@ -59,6 +59,26 @@ const SignUpPage = () => {
       </div>
 
       <div>
+        <Label htmlFor="email">Email</Label>
+        <Input
+          type="email"
+          id="email"
+          placeholder="Enter Email"
+          {...register("email", {
+            required: "Email is required",
+            pattern: {
+              value: /^[\w.-]+@[a-zA-Z\d.-]+\.[a-zA-Z]{2,4}$/,
+              message: "Enter a valid email address",
+            },
+          })}
+          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
+        />
+        {errors?.email?.message && (
+          <small className="text-red-700">{errors.email.message}</small>
+        )}
+      </div>
+
+      <div>
         <Label htmlFor="first_name">First Name</Label>
         <Input
           type="text"
