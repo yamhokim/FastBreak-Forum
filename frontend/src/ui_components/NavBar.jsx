@@ -33,7 +33,14 @@ const NavBar = ({ darkMode, handleDarkMode }) => {
               Register
             </NavLink>
           </li>
-          <li className="font-semibold">Create post</li>
+          <li className="font-semibold">
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "")}
+              to="/create"
+            >
+              Create Post
+            </NavLink>
+          </li>
         </ul>
 
         <Switch onCheckedChange={handleDarkMode} checked={darkMode} />
