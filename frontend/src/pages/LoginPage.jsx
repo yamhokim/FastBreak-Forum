@@ -41,7 +41,7 @@ const LoginPage = () => {
         <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
           Login
         </button>
-        <p className="text-[14px]">
+        <p className="text-[14px] mt-4">
           Don't have an account? <Link to="/signup">Signup</Link>
         </p>
       </div>

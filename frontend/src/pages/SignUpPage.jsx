@@ -173,7 +173,7 @@ const SignUpPage = () => {
             <small className="text-[16px]">Signup</small>
           )}
         </button>
-        <p className="text-[14px]">Already have an account? Login</p>
+        <p className="text-[14px] mt-4">Already have an account? Login</p>
       </div>
     </form>
   );
