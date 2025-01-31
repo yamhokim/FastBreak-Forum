@@ -40,3 +40,16 @@ export async function registerUser(data) {
     throw new Error(error.message || "An unexpected error occurred");
   }
 }
+
+export async function login(data) {
+  try {
+    const response = await api.post("token", data);
+    return response.data;
+  } catch (error) {
+    if (error.status === 401) {
+      throw new Error("Invalid Credentials");
+    }
+
+    throw new Error(error);
+  }
+}
