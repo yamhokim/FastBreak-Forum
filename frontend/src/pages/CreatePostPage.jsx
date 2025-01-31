@@ -60,6 +60,21 @@ const CreatePostPage = () => {
           </SelectContent>
         </Select>
       </div>
+
+      <div className="w-full">
+        <Label htmlFor="featured_image">Featured Image</Label>
+        <Input
+          type="file"
+          id="picture"
+          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full"
+        />
+      </div>
+
+      <div className="w-full flex items-center justify-center flex-col my-4">
+        <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
+          Create Post
+        </button>
+      </div>
     </form>
   );
 };
