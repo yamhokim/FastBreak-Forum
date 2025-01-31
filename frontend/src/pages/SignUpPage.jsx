@@ -39,9 +39,7 @@ const SignUpPage = () => {
       </div>
 
       <div>
-        <Label htmlFor="username" className="dark:text-[#97989F]">
-          Username
-        </Label>
+        <Label htmlFor="username">Username</Label>
         <Input
           type="text"
           id="username"
