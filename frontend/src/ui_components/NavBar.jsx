@@ -24,7 +24,14 @@ const NavBar = ({ darkMode, handleDarkMode }) => {
           </li>
 
           <li>Logout</li>
-          <li>Login</li>
+          <li>
+            <NavLink
+              className={({ isActive }) => (isActive ? "active" : "")}
+              to="/login"
+            >
+              Login
+            </NavLink>
+          </li>
           <li>
             <NavLink
               className={({ isActive }) => (isActive ? "active" : "")}
