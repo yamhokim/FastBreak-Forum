@@ -16,6 +16,7 @@ import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { createBlog } from "@/services/apiBlog";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
+import SmallSpinner from "@/ui_components/SmallSpinner";
 
 const CreatePostPage = () => {
   const { register, handleSubmit, formState, setValue } = useForm();
@@ -143,7 +144,14 @@ const CreatePostPage = () => {
 
       <div className="w-full flex items-center justify-center flex-col my-4">
         <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
-          Create Post
+          {mutation.isPending ? (
+            <>
+              <SmallSpinner />{" "}
+              <small className="text-[14px]">Creating Post...</small>
+            </>
+          ) : (
+            <small className="text-[14px]">Create Post</small>
+          )}
         </button>
       </div>
     </form>
