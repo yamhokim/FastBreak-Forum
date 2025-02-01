@@ -13,7 +13,9 @@ const LoginPage = () => {
 
   const mutation = useMutation({
     mutationFn: (data) => login(data),
-    onSuccess: () => {
+    onSuccess: (response) => {
+      localStorage.setItem("access", response.access);
+      localStorage.setItem("refresh", response.refresh);
       toast.success("You have successfully logged in!");
     },
     onError: (error) => {
