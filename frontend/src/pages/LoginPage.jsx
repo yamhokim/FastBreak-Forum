@@ -4,12 +4,14 @@ import { login } from "@/services/apiBlog";
 import SmallSpinner from "@/ui_components/SmallSpinner";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
-import { Link } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
+  const location = useLocation();
+  const navigate = useNavigate();
 
   const mutation = useMutation({
     mutationFn: (data) => login(data),
@@ -17,6 +19,8 @@ const LoginPage = () => {
       localStorage.setItem("access", response.access);
       localStorage.setItem("refresh", response.refresh);
       toast.success("You have successfully logged in!");
+      const from = location?.state?.from?.pathname || "/";
+      navigate(from, { replace: true });
     },
     onError: (error) => {
       toast.error(error.message);
