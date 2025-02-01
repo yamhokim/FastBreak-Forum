@@ -10,10 +10,22 @@ import {
 } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { useForm } from "react-hook-form";
+import InputError from "@/ui_components/InputError";
 
 const CreatePostPage = () => {
+  const { register, handleSubmit, formState, setValue } = useForm();
+  const { errors } = formState;
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
   return (
-    <form className="md:px-16 px-8 py-6 flex flex-col mx-auto my-9 items-center gap-6 w-fit rounded-lg bg-[#FFFFFF] shadow-xl dark:text-white dark:bg-[#141624]">
+    <form
+      onSubmit={handleSubmit(onSubmit)}
+      className="md:px-16 px-8 py-6 flex flex-col mx-auto my-9 items-center gap-6 w-fit rounded-lg bg-[#FFFFFF] shadow-xl dark:text-white dark:bg-[#141624]"
+    >
       <div className="flex flex-col gap-2 justify-center items-center mb-2">
         <h3 className="font-semibold text-2xl">Create Post</h3>
 
@@ -21,44 +33,69 @@ const CreatePostPage = () => {
       </div>
 
       <div>
-        <Label htmlFor="title" className="dark:text-[#97989F]">
-          Title
-        </Label>
+        <Label htmlFor="title">Title</Label>
         <Input
           type="text"
           id="title"
+          {...register("title", {
+            required: "The blog post must have a title",
+            minLength: {
+              value: 3,
+              message: "The title must be at least 3 characters",
+            },
+          })}
           placeholder="Give you post a title"
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[400px]"
         />
+
+        {errors?.title?.message && <InputError error={errors.title.message} />}
       </div>
 
       <div>
-        <Label htmlFor="content">Content</Label>
+        <Label htmlFor="contents">Content</Label>
         <Textarea
           id="content"
+          {...register("contents", {
+            required: "The blog post must have contents",
+            minLength: {
+              value: 10,
+              message: "The content must be at least 10 characters",
+            },
+          })}
           placeholder="Write your blog post"
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[180px]  w-[400px] text-justify"
         />
+        {errors?.contents?.message && (
+          <InputError error={errors.contents.message} />
+        )}
       </div>
 
       <div className="w-full">
         <Label htmlFor="category">Category</Label>
 
-        <Select>
+        <Select
+          {...register("category", {
+            required: "The blog post must have a category",
+          })}
+          onValueChange={(value) => setValue("category", value)}
+        >
           <SelectTrigger className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full">
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
           <SelectContent>
             <SelectGroup>
               <SelectLabel>Categories</SelectLabel>
-              <SelectItem value="Frontend">Frontend</SelectItem>
-              <SelectItem value="Backend">Backend</SelectItem>
-              <SelectItem value="Fullstack">Fullstack</SelectItem>
-              <SelectItem value="Web3">Web3</SelectItem>
-              <SelectItem value="Design">Design</SelectItem>
+              <SelectItem value="Technology">Technology</SelectItem>
+              <SelectItem value="Economy">Economy</SelectItem>
+              <SelectItem value="Business">Business</SelectItem>
+              <SelectItem value="Sports">Sports</SelectItem>
+              <SelectItem value="Lifestyle">Lifestyle</SelectItem>
             </SelectGroup>
           </SelectContent>
         </Select>
+        {errors?.category?.message && (
+          <InputError error={errors.category.message} />
+        )}
       </div>
 
       <div className="w-full">
@@ -66,8 +103,14 @@ const CreatePostPage = () => {
         <Input
           type="file"
           id="picture"
+          {...register("featured_image", {
+            required: "The blog post must have a featured image",
+          })}
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full"
         />
+        {errors?.featured_image?.message && (
+          <InputError error={errors.featured_image.message} />
+        )}
       </div>
 
       <div className="w-full flex items-center justify-center flex-col my-4">
