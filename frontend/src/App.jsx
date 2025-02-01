@@ -40,7 +40,12 @@ const App = () => {
         <Route
           path="/"
           element={
-            <AppLayout isAuthenticated={isAuthenticated} username={username} />
+            <AppLayout
+              isAuthenticated={isAuthenticated}
+              username={username}
+              setUsername={setUsername}
+              setIsAuthenticated={setIsAuthenticated}
+            />
           }
         >
           <Route index element={<HomePage />} />

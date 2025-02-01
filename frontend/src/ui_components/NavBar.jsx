@@ -4,8 +4,22 @@ import ResponsiveNavBar from "./ResponsiveNavBar";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const NavBar = ({ darkMode, handleDarkMode, isAuthenticated, username }) => {
+const NavBar = ({
+  darkMode,
+  handleDarkMode,
+  isAuthenticated,
+  username,
+  setIsAuthenticated,
+  setUsername,
+}) => {
   const [showNavBar, setShowNavBar] = useState(false);
+
+  function logout() {
+    localStorage.removeItem("access");
+    localStorage.removeItem("refresh");
+    setIsAuthenticated(false);
+    setUsername(null);
+  }
 
   return (
     <>
@@ -25,7 +39,9 @@ const NavBar = ({ darkMode, handleDarkMode, isAuthenticated, username }) => {
                 </NavLink>
               </li>
 
-              <li>Logout</li>
+              <li onClick={logout} className="cursor-pointer">
+                Logout
+              </li>
             </>
           ) : (
             <>
