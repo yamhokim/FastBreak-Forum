@@ -12,13 +12,39 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import InputError from "@/ui_components/InputError";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
+import { createBlog } from "@/services/apiBlog";
+import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 const CreatePostPage = () => {
   const { register, handleSubmit, formState, setValue } = useForm();
   const { errors } = formState;
+  const navigate = useNavigate();
+  const queryClient = useQueryClient();
+
+  const mutation = useMutation({
+    mutationFn: (data) => createBlog(data),
+    onSuccess: () => {
+      toast.success("You have successfully created an blog post 👍");
+      navigate("/");
+      queryClient.invalidateQueries({ queryKey: ["blogs"] });
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
 
   function onSubmit(data) {
-    console.log(data);
+    const formData = new FormData();
+    formData.append("title", data.title);
+    formData.append("contents", data.contents);
+    formData.append("category", data.category);
+    if (data.featured_image) {
+      formData.append("featured_image", data.featured_image[0]);
+    }
+
+    mutation.mutate(formData);
   }
 
   return (
