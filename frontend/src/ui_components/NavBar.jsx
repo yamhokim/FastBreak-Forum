@@ -82,7 +82,13 @@ const NavBar = ({
         />
       </nav>
 
-      {showNavBar && <ResponsiveNavBar />}
+      {showNavBar && (
+        <ResponsiveNavBar
+          isAuthenticated={isAuthenticated}
+          username={username}
+          logout={logout}
+        />
+      )}
     </>
   );
 };
