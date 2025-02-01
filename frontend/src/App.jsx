@@ -8,15 +8,22 @@ import SignUpPage from "./pages/SignUpPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoutes from "./ui_components/ProtectedRoutes";
+import { useState } from "react";
 
 const queryClient = new QueryClient();
 
 const App = () => {
+  const [username, setUsername] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
   return (
     <QueryClientProvider client={queryClient}>
       <BrowserRouter>
         <Routes>
-          <Route path="/" element={<AppLayout />}>
+          <Route
+            path="/"
+            element={<AppLayout isAuthenticated={isAuthenticated} />}
+          >
             <Route index element={<HomePage />} />
             <Route path="blogs/:slug" element={<DetailPage />} />
             <Route path="signup" element={<SignUpPage />} />
@@ -30,7 +37,10 @@ const App = () => {
                 </ProtectedRoutes>
               }
             />
-            <Route path="login" element={<LoginPage />} />
+            <Route
+              path="login"
+              element={<LoginPage setIsAuthenticated={setIsAuthenticated} />}
+            />
           </Route>
         </Routes>
       </BrowserRouter>

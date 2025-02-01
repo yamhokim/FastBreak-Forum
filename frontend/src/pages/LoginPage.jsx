@@ -7,7 +7,7 @@ import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const LoginPage = () => {
+const LoginPage = ({ setIsAuthenticated }) => {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const location = useLocation();
@@ -18,6 +18,7 @@ const LoginPage = () => {
     onSuccess: (response) => {
       localStorage.setItem("access", response.access);
       localStorage.setItem("refresh", response.refresh);
+      setIsAuthenticated(true);
       toast.success("You have successfully logged in!");
       const from = location?.state?.from?.pathname || "/";
       navigate(from, { replace: true });

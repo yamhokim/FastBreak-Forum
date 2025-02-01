@@ -4,7 +4,7 @@ import ResponsiveNavBar from "./ResponsiveNavBar";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const NavBar = ({ darkMode, handleDarkMode }) => {
+const NavBar = ({ darkMode, handleDarkMode, isAuthenticated }) => {
   const [showNavBar, setShowNavBar] = useState(false);
 
   return (
@@ -14,32 +14,39 @@ const NavBar = ({ darkMode, handleDarkMode }) => {
           FastBreak Forum
         </Link>
         <ul className="flex items-center  justify-end gap-9 text-[#3B3C4A] lg:flex-1 max-md:hidden dark:text-[#FFFFFF]">
-          <li>
-            <NavLink
-              className={({ isActive }) => (isActive ? "active" : "")}
-              to="/profile"
-            >
-              Hi, Lebron
-            </NavLink>
-          </li>
+          {isAuthenticated ? (
+            <>
+              <li>
+                <NavLink
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                  to="/profile"
+                >
+                  Hi, Lebron
+                </NavLink>
+              </li>
 
-          <li>Logout</li>
-          <li>
-            <NavLink
-              className={({ isActive }) => (isActive ? "active" : "")}
-              to="/login"
-            >
-              Login
-            </NavLink>
-          </li>
-          <li>
-            <NavLink
-              className={({ isActive }) => (isActive ? "active" : "")}
-              to="/signup"
-            >
-              Register
-            </NavLink>
-          </li>
+              <li>Logout</li>
+            </>
+          ) : (
+            <>
+              <li>
+                <NavLink
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                  to="/login"
+                >
+                  Login
+                </NavLink>
+              </li>
+              <li>
+                <NavLink
+                  className={({ isActive }) => (isActive ? "active" : "")}
+                  to="/signup"
+                >
+                  Register
+                </NavLink>
+              </li>
+            </>
+          )}
           <li className="font-semibold">
             <NavLink
               className={({ isActive }) => (isActive ? "active" : "")}
