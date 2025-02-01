@@ -1,6 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { login } from "@/services/apiBlog";
+import SmallSpinner from "@/ui_components/SmallSpinner";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
@@ -69,7 +70,15 @@ const LoginPage = () => {
 
       <div className="w-full flex items-center justify-center flex-col my-4">
         <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
-          Login
+          {mutation.isPending ? (
+            <>
+              {" "}
+              <SmallSpinner />{" "}
+              <small className="text-[16px]">Logging In...</small>
+            </>
+          ) : (
+            <small className="text-[16px]">Login</small>
+          )}
         </button>
         <p className="text-[14px] mt-4">
           Don't have an account? <Link to="/signup">Signup</Link>
