@@ -27,9 +27,11 @@ const CreatePostPage = () => {
       className="md:px-16 px-8 py-6 flex flex-col mx-auto my-9 items-center gap-6 w-fit rounded-lg bg-[#FFFFFF] shadow-xl dark:text-white dark:bg-[#141624]"
     >
       <div className="flex flex-col gap-2 justify-center items-center mb-2">
-        <h3 className="font-semibold text-2xl">Create Post</h3>
+        <h3 className="font-semibold text-2xl max-sm:text-xl">Create Post</h3>
 
-        <p>Create a new post and share your ideas</p>
+        <p className="max-sm:text-[14px]">
+          Create a new post and share your ideas
+        </p>
       </div>
 
       <div>
@@ -45,7 +47,7 @@ const CreatePostPage = () => {
             },
           })}
           placeholder="Give you post a title"
-          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[400px]"
+          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[400px] max-sm:w-[300px] max-sm:text-[14px]"
         />
 
         {errors?.title?.message && <InputError error={errors.title.message} />}
@@ -63,7 +65,7 @@ const CreatePostPage = () => {
             },
           })}
           placeholder="Write your blog post"
-          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[180px]  w-[400px] text-justify"
+          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[180px]  w-[400px] text-justify max-sm:w-[300px] max-sm:text-[14px]"
         />
         {errors?.contents?.message && (
           <InputError error={errors.contents.message} />
@@ -79,7 +81,7 @@ const CreatePostPage = () => {
           })}
           onValueChange={(value) => setValue("category", value)}
         >
-          <SelectTrigger className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full">
+          <SelectTrigger className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full max-sm:w-[300px] max-sm:text-[14px]">
             <SelectValue placeholder="Select a category" />
           </SelectTrigger>
           <SelectContent>
@@ -106,7 +108,7 @@ const CreatePostPage = () => {
           {...register("featured_image", {
             required: "The blog post must have a featured image",
           })}
-          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full"
+          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full max-sm:w-[300px] max-sm:text-[14px]"
         />
         {errors?.featured_image?.message && (
           <InputError error={errors.featured_image.message} />
