@@ -22,7 +22,12 @@ const App = () => {
         <Routes>
           <Route
             path="/"
-            element={<AppLayout isAuthenticated={isAuthenticated} />}
+            element={
+              <AppLayout
+                isAuthenticated={isAuthenticated}
+                username={username}
+              />
+            }
           >
             <Route index element={<HomePage />} />
             <Route path="blogs/:slug" element={<DetailPage />} />
@@ -39,7 +44,12 @@ const App = () => {
             />
             <Route
               path="login"
-              element={<LoginPage setIsAuthenticated={setIsAuthenticated} />}
+              element={
+                <LoginPage
+                  setIsAuthenticated={setIsAuthenticated}
+                  setUsername={setUsername}
+                />
+              }
             />
           </Route>
         </Routes>

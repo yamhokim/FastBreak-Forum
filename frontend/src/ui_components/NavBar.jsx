@@ -4,7 +4,7 @@ import ResponsiveNavBar from "./ResponsiveNavBar";
 import { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 
-const NavBar = ({ darkMode, handleDarkMode, isAuthenticated }) => {
+const NavBar = ({ darkMode, handleDarkMode, isAuthenticated, username }) => {
   const [showNavBar, setShowNavBar] = useState(false);
 
   return (
@@ -21,7 +21,7 @@ const NavBar = ({ darkMode, handleDarkMode, isAuthenticated }) => {
                   className={({ isActive }) => (isActive ? "active" : "")}
                   to="/profile"
                 >
-                  Hi, Lebron
+                  Hi, {username}
                 </NavLink>
               </li>
 

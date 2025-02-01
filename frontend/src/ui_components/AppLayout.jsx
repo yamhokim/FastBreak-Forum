@@ -4,7 +4,7 @@ import { Outlet } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { ToastContainer } from "react-toastify";
 
-const AppLayout = ({ isAuthenticated }) => {
+const AppLayout = ({ isAuthenticated, username }) => {
   useEffect(function () {
     if (localStorage.getItem("dark") === null) {
       localStorage.setItem("dark", "false");
@@ -28,6 +28,7 @@ const AppLayout = ({ isAuthenticated }) => {
           darkMode={darkMode}
           handleDarkMode={handleDarkMode}
           isAuthenticated={isAuthenticated}
+          username={username}
         />
         <ToastContainer />
         <Outlet />

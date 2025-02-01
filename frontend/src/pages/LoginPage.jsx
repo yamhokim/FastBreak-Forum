@@ -1,13 +1,13 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { login } from "@/services/apiBlog";
+import { getUsername, login } from "@/services/apiBlog";
 import SmallSpinner from "@/ui_components/SmallSpinner";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
 
-const LoginPage = ({ setIsAuthenticated }) => {
+const LoginPage = ({ setIsAuthenticated, setUsername }) => {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
   const location = useLocation();
@@ -19,6 +19,7 @@ const LoginPage = ({ setIsAuthenticated }) => {
       localStorage.setItem("access", response.access);
       localStorage.setItem("refresh", response.refresh);
       setIsAuthenticated(true);
+      getUsername().then((response) => setUsername(response.username));
       toast.success("You have successfully logged in!");
       const from = location?.state?.from?.pathname || "/";
       navigate(from, { replace: true });
