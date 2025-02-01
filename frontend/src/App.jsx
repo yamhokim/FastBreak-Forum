@@ -3,25 +3,76 @@ import AppLayout from "./ui_components/AppLayout";
 import HomePage from "./pages/HomePage";
 import DetailPage from "./pages/DetailPage";
 import ProfilePage from "./pages/ProfilePage";
-import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
+import {
+  QueryClient,
+  QueryClientProvider,
+  useQuery,
+} from "@tanstack/react-query";
 import SignUpPage from "./pages/SignUpPage";
-
-const queryClient = new QueryClient();
+import CreatePostPage from "./pages/CreatePostPage";
+import LoginPage from "./pages/LoginPage";
+import ProtectedRoutes from "./ui_components/ProtectedRoutes";
+import { useEffect, useState } from "react";
+import { getUsername } from "./services/apiBlog";
 
 const App = () => {
+  const [username, setUsername] = useState(null);
+  const [isAuthenticated, setIsAuthenticated] = useState(false);
+
+  const { data } = useQuery({
+    queryKey: ["username"],
+    queryFn: getUsername,
+  });
+
+  useEffect(
+    function () {
+      if (data) {
+        setUsername(data.username);
+        setIsAuthenticated(true);
+      }
+    },
+    [data]
+  );
+
   return (
-    <QueryClientProvider client={queryClient}>
-      <BrowserRouter>
-        <Routes>
-          <Route path="/" element={<AppLayout />}>
-            <Route index element={<HomePage />} />
-            <Route path="blogs/:slug" element={<DetailPage />} />
-            <Route path="signup" element={<SignUpPage />} />
-            <Route path="profile" element={<ProfilePage />} />
-          </Route>
-        </Routes>
-      </BrowserRouter>
-    </QueryClientProvider>
+    <BrowserRouter>
+      <Routes>
+        <Route
+          path="/"
+          element={
+            <AppLayout
+              isAuthenticated={isAuthenticated}
+              username={username}
+              setUsername={setUsername}
+              setIsAuthenticated={setIsAuthenticated}
+            />
+          }
+        >
+          <Route index element={<HomePage />} />
+          <Route path="blogs/:slug" element={<DetailPage />} />
+          <Route path="signup" element={<SignUpPage />} />
+          <Route path="profile" element={<ProfilePage />} />
+          <Route
+            path="create"
+            element={
+              <ProtectedRoutes>
+                {" "}
+                <CreatePostPage />
+              </ProtectedRoutes>
+            }
+          />
+          <Route
+            path="login"
+            element={
+              <LoginPage
+                setIsAuthenticated={setIsAuthenticated}
+                setUsername={setUsername}
+              />
+            }
+          />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   );
 };
 
