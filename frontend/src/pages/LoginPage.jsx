@@ -1,14 +1,27 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
+import { login } from "@/services/apiBlog";
+import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const LoginPage = () => {
   const { register, handleSubmit, formState } = useForm();
   const { errors } = formState;
 
+  const mutation = useMutation({
+    mutationFn: (data) => login(data),
+    onSuccess: () => {
+      toast.success("You have successfully logged in!");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+    },
+  });
+
   function onSubmit(data) {
-    console.log(data);
+    mutation.mutate(data);
   }
 
   return (
