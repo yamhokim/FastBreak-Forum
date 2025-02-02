@@ -168,6 +168,23 @@ const SignUpPage = ({ userInfo, updateForm = false }) => {
         </div>
       )}
 
+      {updateForm && (
+        <div className="w-full">
+          <Label htmlFor="profile_picture">Profile Picture</Label>
+          <Input
+            type="file"
+            id="picture"
+            {...register("profile_picture", {
+              required: "Profile picture is required",
+            })}
+            className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full max-sm:w-[300px] max-sm:text-[14px]"
+          />
+          {errors?.profile_picture?.message && (
+            <InputError error={errors.profile_picture.message} />
+          )}
+        </div>
+      )}
+
       {updateForm || (
         <div>
           <Label htmlFor="password">Password</Label>
