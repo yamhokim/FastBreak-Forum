@@ -1,8 +1,8 @@
 import Badge from "@/ui_components/Badge";
 import BlogAuthor from "@/ui_components/BlogAuthor";
-import { useQuery } from "@tanstack/react-query";
-import { useParams } from "react-router-dom";
-import { getBlog } from "@/services/apiBlog";
+import { useMutation, useQuery } from "@tanstack/react-query";
+import { useNavigate, useParams } from "react-router-dom";
+import { deleteBlog, getBlog } from "@/services/apiBlog";
 import { BASE_URL } from "@/api";
 import Spinner from "@/ui_components/Spinner";
 import { HiPencilAlt } from "react-icons/hi";
@@ -10,10 +10,12 @@ import { MdDelete } from "react-icons/md";
 import Modal from "@/ui_components/Modal";
 import CreatePostPage from "./CreatePostPage";
 import { useState } from "react";
+import { toast } from "react-toastify";
 
 const DetailPage = ({ username, isAuthenticated }) => {
   const { slug } = useParams();
   const [showModal, setShowModal] = useState(false);
+  const navigate = useNavigate();
 
   function toggleModal() {
     setShowModal((curr) => !curr);
@@ -30,6 +32,26 @@ const DetailPage = ({ username, isAuthenticated }) => {
   });
 
   console.log(blog);
+
+  const deleteMutation = useMutation({
+    mutationFn: (id) => deleteBlog(id),
+    onSuccess: () => {
+      toast.success("Your post has been deleted successfully");
+      navigate("/");
+    },
+    onError: (error) => {
+      console.log(error);
+      toast.error(error.message);
+    },
+  });
+
+  function handleDeleteBlog() {
+    const popUp = window.confirm("Are you sure you want to delete this post?");
+    if (!popUp) {
+      return;
+    }
+    deleteMutation.mutate(blog.id);
+  }
 
   if (isPending) {
     return <Spinner />;
@@ -51,7 +73,10 @@ const DetailPage = ({ username, isAuthenticated }) => {
                 onClick={toggleModal}
                 className="dark:text-white text-3xl cursor-pointer"
               />
-              <MdDelete className="dark:text-white text-3xl cursor-pointer" />
+              <MdDelete
+                onClick={handleDeleteBlog}
+                className="dark:text-white text-3xl cursor-pointer"
+              />
             </span>
           )}
         </div>
