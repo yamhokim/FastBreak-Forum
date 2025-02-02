@@ -6,6 +6,7 @@ import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import SmallSpinner from "@/ui_components/SmallSpinner";
 import InputError from "@/ui_components/InputError";
+import SmallText from "@/ui_components/SmallText";
 
 const SignUpPage = () => {
   const { register, handleSubmit, formState, reset, watch } = useForm();
@@ -163,11 +164,11 @@ const SignUpPage = () => {
           {mutation.isPending ? (
             <>
               {" "}
-              <SmallSpinner />{" "}
-              <small className="text-[16px]">Creating user...</small>{" "}
+              <SmallSpinner />
+              <SmallText message={"Creating user..."} />
             </>
           ) : (
-            <small className="text-[16px]">Signup</small>
+            <SmallText message={"Signup"} />
           )}
         </button>
         <p className="text-[14px] mt-4">Already have an account? Login</p>

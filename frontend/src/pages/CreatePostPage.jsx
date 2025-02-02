@@ -17,6 +17,7 @@ import { createBlog } from "@/services/apiBlog";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import SmallSpinner from "@/ui_components/SmallSpinner";
+import SmallText from "@/ui_components/SmallText";
 
 const CreatePostPage = () => {
   const { register, handleSubmit, formState, setValue } = useForm();
@@ -146,11 +147,11 @@ const CreatePostPage = () => {
         <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
           {mutation.isPending ? (
             <>
-              <SmallSpinner />{" "}
-              <small className="text-[14px]">Creating Post...</small>
+              <SmallSpinner />
+              <SmallText message={"Creating Post..."} />
             </>
           ) : (
-            <small className="text-[14px]">Create Post</small>
+            <SmallText message={"Create Post"} />
           )}
         </button>
       </div>
