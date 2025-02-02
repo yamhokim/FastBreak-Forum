@@ -110,6 +110,7 @@ const CreatePostPage = ({ blog }) => {
             required: "The blog post must have a category",
           })}
           onValueChange={(value) => setValue("category", value)}
+          defaultValue={blog ? blog.category : ""}
         >
           <SelectTrigger className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full max-sm:w-[300px] max-sm:text-[14px]">
             <SelectValue placeholder="Select a category" />
