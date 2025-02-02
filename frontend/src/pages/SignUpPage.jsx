@@ -5,6 +5,8 @@ import { useMutation } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import SmallSpinner from "@/ui_components/SmallSpinner";
+import InputError from "@/ui_components/InputError";
+import SmallText from "@/ui_components/SmallText";
 
 const SignUpPage = () => {
   const { register, handleSubmit, formState, reset, watch } = useForm();
@@ -54,7 +56,7 @@ const SignUpPage = () => {
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
         />
         {errors?.username?.message && (
-          <small className="text-red-700">{errors.username.message}</small>
+          <InputError error={errors.username.message} />
         )}
       </div>
 
@@ -73,9 +75,7 @@ const SignUpPage = () => {
           })}
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
         />
-        {errors?.email?.message && (
-          <small className="text-red-700">{errors.email.message}</small>
-        )}
+        {errors?.email?.message && <InputError error={errors.email.message} />}
       </div>
 
       <div>
@@ -94,7 +94,7 @@ const SignUpPage = () => {
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
         />
         {errors?.first_name?.message && (
-          <small className="text-red-700">{errors.first_name.message}</small>
+          <InputError error={errors.first_name.message} />
         )}
       </div>
 
@@ -114,7 +114,7 @@ const SignUpPage = () => {
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
         />
         {errors?.last_name?.message && (
-          <small className="text-red-700">{errors.last_name.message}</small>
+          <InputError error={errors.last_name.message} />
         )}
       </div>
 
@@ -134,7 +134,7 @@ const SignUpPage = () => {
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
         />
         {errors?.password?.message && (
-          <small className="text-red-700">{errors.password.message}</small>
+          <InputError error={errors.password.message} />
         )}
       </div>
 
@@ -155,9 +155,7 @@ const SignUpPage = () => {
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
         />
         {errors?.confirmPassword?.message && (
-          <small className="text-red-700">
-            {errors.confirmPassword.message}
-          </small>
+          <InputError error={errors.confirmPassword.message} />
         )}
       </div>
 
@@ -166,11 +164,11 @@ const SignUpPage = () => {
           {mutation.isPending ? (
             <>
               {" "}
-              <SmallSpinner />{" "}
-              <small className="text-[16px]">Creating user...</small>{" "}
+              <SmallSpinner />
+              <SmallText message={"Creating user..."} />
             </>
           ) : (
-            <small className="text-[16px]">Signup</small>
+            <SmallText message={"Signup"} />
           )}
         </button>
         <p className="text-[14px] mt-4">Already have an account? Login</p>

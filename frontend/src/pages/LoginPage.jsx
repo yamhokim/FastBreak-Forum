@@ -1,7 +1,9 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { getUsername, login } from "@/services/apiBlog";
+import InputError from "@/ui_components/InputError";
 import SmallSpinner from "@/ui_components/SmallSpinner";
+import SmallText from "@/ui_components/SmallText";
 import { useMutation } from "@tanstack/react-query";
 import { useForm } from "react-hook-form";
 import { Link, useLocation, useNavigate } from "react-router-dom";
@@ -57,7 +59,7 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
         />
         {errors?.username?.message && (
-          <small className="text-red-700 ">{errors.username.message}</small>
+          <InputError error={errors.username.message} />
         )}
       </div>
 
@@ -74,7 +76,7 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
         />
         {errors?.password?.message && (
-          <small className="text-red-700">{errors.password.message}</small>
+          <InputError error={errors.password.message} />
         )}
       </div>
 
@@ -86,11 +88,11 @@ const LoginPage = ({ setIsAuthenticated, setUsername }) => {
           {mutation.isPending ? (
             <>
               {" "}
-              <SmallSpinner />{" "}
-              <small className="text-[16px]">Logging In...</small>
+              <SmallSpinner />
+              <SmallText message={"Logging In..."} />
             </>
           ) : (
-            <small className="text-[16px]">Login</small>
+            <SmallText message={"Login"} />
           )}
         </button>
         <p className="text-[14px] mt-4">
