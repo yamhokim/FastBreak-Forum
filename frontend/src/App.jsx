@@ -49,7 +49,15 @@ const App = () => {
           }
         >
           <Route index element={<HomePage />} />
-          <Route path="blogs/:slug" element={<DetailPage />} />
+          <Route
+            path="blogs/:slug"
+            element={
+              <DetailPage
+                username={username}
+                isAuthenticated={isAuthenticated}
+              />
+            }
+          />
           <Route path="signup" element={<SignUpPage />} />
           <Route path="profile" element={<ProfilePage />} />
           <Route
@@ -57,7 +65,7 @@ const App = () => {
             element={
               <ProtectedRoutes>
                 {" "}
-                <CreatePostPage />
+                <CreatePostPage isAuthenticated={isAuthenticated} />
               </ProtectedRoutes>
             }
           />

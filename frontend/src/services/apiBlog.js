@@ -70,3 +70,29 @@ export async function createBlog(data) {
     throw new Error(error.message);
   }
 }
+
+export async function updateBlog(data, id) {
+  try {
+    const response = await api.put(`update_blog/${id}/`, data);
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response?.data?.message || "Failed to update blog");
+    } else {
+      throw new Error(error.message);
+    }
+  }
+}
+
+export async function deleteBlog(id) {
+  try {
+    const response = await api.post(`delete_blog/${id}/`);
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response?.data?.message || "Failed to delete blog");
+    } else {
+      throw new Error(error.message);
+    }
+  }
+}
