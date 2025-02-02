@@ -65,7 +65,7 @@ const App = () => {
             element={
               <ProtectedRoutes>
                 {" "}
-                <CreatePostPage />
+                <CreatePostPage isAuthenticated={isAuthenticated} />
               </ProtectedRoutes>
             }
           />

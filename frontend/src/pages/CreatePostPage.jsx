@@ -13,19 +13,34 @@ import { Label } from "@/components/ui/label";
 import { useForm } from "react-hook-form";
 import InputError from "@/ui_components/InputError";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
-import { createBlog } from "@/services/apiBlog";
+import { createBlog, updateBlog } from "@/services/apiBlog";
 import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import SmallSpinner from "@/ui_components/SmallSpinner";
 import SmallText from "@/ui_components/SmallText";
+import LoginPage from "./LoginPage";
 
-const CreatePostPage = ({ blog }) => {
+const CreatePostPage = ({ blog, isAuthenticated }) => {
   const { register, handleSubmit, formState, setValue } = useForm({
     defaultValues: blog ? blog : {},
   });
   const { errors } = formState;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const blogID = blog?.id;
+
+  const updateMutation = useMutation({
+    mutationFn: ({ data, id }) => updateBlog(data, id),
+    onSuccess: () => {
+      navigate("/");
+      toast.success("Your post has been succcessfully updated 👍");
+      console.log("Your post has been succcessfully updated 👍");
+    },
+    onError: (error) => {
+      toast.error(error.message);
+      console.log("Error updating blog", error);
+    },
+  });
 
   const mutation = useMutation({
     mutationFn: (data) => createBlog(data),
@@ -44,23 +59,39 @@ const CreatePostPage = ({ blog }) => {
     formData.append("title", data.title);
     formData.append("contents", data.contents);
     formData.append("category", data.category);
-    if (data.featured_image) {
-      formData.append("featured_image", data.featured_image[0]);
+    if (data.featured_image && data.featured_image[0]) {
+      if (data.featured_image[0] !== "/") {
+        formData.append("featured_image", data.featured_image[0]);
+      }
     }
 
-    mutation.mutate(formData);
+    if (blog && blogID) {
+      updateMutation.mutate({ data: formData, id: blogID });
+    } else {
+      mutation.mutate(formData);
+    }
+  }
+
+  if (isAuthenticated === false) {
+    return <LoginPage />;
   }
 
   return (
     <form
       onSubmit={handleSubmit(onSubmit)}
-      className="md:px-16 px-8 py-6 flex flex-col mx-auto my-9 items-center gap-6 w-fit rounded-lg bg-[#FFFFFF] shadow-xl dark:text-white dark:bg-[#141624]"
+      className={`${
+        blog && "h-[90%] overflow-auto"
+      } md:px-16 px-8 py-6 flex flex-col mx-auto my-9 items-center gap-6 w-fit rounded-lg bg-[#FFFFFF] shadow-xl dark:text-white dark:bg-[#141624]`}
     >
       <div className="flex flex-col gap-2 justify-center items-center mb-2">
-        <h3 className="font-semibold text-2xl max-sm:text-xl">Create Post</h3>
+        <h3 className="font-semibold text-2xl max-sm:text-xl">
+          {blog ? "Update Post" : "Create Post"}
+        </h3>
 
         <p className="max-sm:text-[14px]">
-          Create a new post and share your ideas
+          {blog
+            ? "Do you want to update your post?"
+            : "Create a new post and share your ideas"}
         </p>
       </div>
 
@@ -137,7 +168,7 @@ const CreatePostPage = ({ blog }) => {
           type="file"
           id="picture"
           {...register("featured_image", {
-            required: "The blog post must have a featured image",
+            required: blog ? false : "The blog post must have a featured image",
           })}
           className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full max-sm:w-[300px] max-sm:text-[14px]"
         />
@@ -147,16 +178,29 @@ const CreatePostPage = ({ blog }) => {
       </div>
 
       <div className="w-full flex items-center justify-center flex-col my-4">
-        <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
-          {mutation.isPending ? (
-            <>
-              <SmallSpinner />
-              <SmallText message={"Creating Post..."} />
-            </>
-          ) : (
-            <SmallText message={"Create Post"} />
-          )}
-        </button>
+        {blog ? (
+          <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
+            {updateMutation.isPending ? (
+              <>
+                <SmallSpinner />
+                <SmallText message={"Updating Post..."} />
+              </>
+            ) : (
+              <SmallText message={"Update Post"} />
+            )}
+          </button>
+        ) : (
+          <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
+            {mutation.isPending ? (
+              <>
+                <SmallSpinner />
+                <SmallText message={"Creating Post..."} />
+              </>
+            ) : (
+              <SmallText message={"Create Post"} />
+            )}
+          </button>
+        )}
       </div>
     </form>
   );
