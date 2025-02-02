@@ -49,6 +49,7 @@ const App = () => {
           }
         >
           <Route index element={<HomePage />} />
+          <Route path="profile" element={<ProfilePage />} />
           <Route
             path="blogs/:slug"
             element={
@@ -59,7 +60,6 @@ const App = () => {
             }
           />
           <Route path="signup" element={<SignUpPage />} />
-          <Route path="profile" element={<ProfilePage />} />
           <Route
             path="create"
             element={
