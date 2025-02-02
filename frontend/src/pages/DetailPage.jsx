@@ -95,7 +95,7 @@ const DetailPage = ({ username, isAuthenticated }) => {
       </div>
 
       {showModal && (
-        <Modal>
+        <Modal toggleModal={toggleModal}>
           <CreatePostPage blog={blog} />
         </Modal>
       )}
