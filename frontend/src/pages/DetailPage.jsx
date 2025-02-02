@@ -6,8 +6,10 @@ import { useParams } from "react-router-dom";
 import { getBlog } from "@/services/apiBlog";
 import { BASE_URL } from "@/api";
 import Spinner from "@/ui_components/Spinner";
+import { HiPencilAlt } from "react-icons/hi";
+import { MdDelete } from "react-icons/md";
 
-const DetailPage = () => {
+const DetailPage = ({ username, isAuthenticated }) => {
   const { slug } = useParams();
   const {
     isPending,
@@ -33,6 +35,13 @@ const DetailPage = () => {
         <h2 className="py-6 leading-normal text-2xl md:text-3xl text-[#181A2A] tracking-wide font-semibold dark:text-[#FFFFFF]">
           {blog.title}
         </h2>
+
+        {isAuthenticated && username === blog.author.username && (
+          <span className="flex justify-between items-center gap-2">
+            <HiPencilAlt className="dark:text-white text-3xl cursor-pointer" />
+            <MdDelete className="dark:text-white text-3xl cursor-pointer" />
+          </span>
+        )}
       </div>
 
       <BlogAuthor blog={blog} />
