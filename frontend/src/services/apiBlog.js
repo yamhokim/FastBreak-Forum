@@ -83,3 +83,16 @@ export async function updateBlog(data, id) {
     }
   }
 }
+
+export async function deleteBlog(id) {
+  try {
+    const response = await api.post(`delete_blog/${id}/`);
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(error.response?.data?.message || "Failed to delete blog");
+    } else {
+      throw new Error(error.message);
+    }
+  }
+}
