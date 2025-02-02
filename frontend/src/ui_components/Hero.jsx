@@ -1,9 +1,9 @@
 import { FaInstagram, FaFacebookF, FaYoutube } from "react-icons/fa";
 import { BsTwitterX } from "react-icons/bs";
-import profile_pic from "../images/king_bron.jpg";
 import { BASE_URL } from "@/api";
+import { HiPencilAlt } from "react-icons/hi";
 
-const Hero = ({ userInfo }) => {
+const Hero = ({ userInfo, authUsername, toggleModal }) => {
   return (
     <div className="padding-x py-9 max-container flex flex-col items-center justify-center gap-4 bg-[#F6F6F7] dark:bg-[#242535] rounded-md">
       <div className="flex gap-4">
@@ -25,6 +25,15 @@ const Hero = ({ userInfo }) => {
             {userInfo?.job_title || "Collaborator & Editor"}
           </p>
         </span>
+
+        {userInfo?.username === authUsername && (
+          <span>
+            <HiPencilAlt
+              onClick={toggleModal}
+              className="dark:text-white text-2xl cursor-pointer"
+            />
+          </span>
+        )}
       </div>
 
       <p className="text-[#3B3C4A] text-[16px] max-md:leading-[2rem] lg:leading-normal lg:mx-[200px] text-center dark:text-[#BABABF]">
