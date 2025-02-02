@@ -38,8 +38,8 @@ const ProfilePage = ({ authUsername }) => {
       <BlogContainer blogs={blogs} title={`📫 ${username}'s Post`} />
 
       {showModal && (
-        <Modal>
-          <SignUpPage />
+        <Modal toggleModal={toggleModal}>
+          <SignUpPage userInfo={data} updateForm={true} />
         </Modal>
       )}
     </>

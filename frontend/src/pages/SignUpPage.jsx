@@ -7,8 +7,9 @@ import { useForm } from "react-hook-form";
 import SmallSpinner from "@/ui_components/SmallSpinner";
 import InputError from "@/ui_components/InputError";
 import SmallText from "@/ui_components/SmallText";
+import { Textarea } from "@/components/ui/textarea";
 
-const SignUpPage = () => {
+const SignUpPage = ({ userInfo, updateForm = false }) => {
   const { register, handleSubmit, formState, reset, watch } = useForm();
   const { errors } = formState;
 
@@ -32,12 +33,20 @@ const SignUpPage = () => {
 
   return (
     <form
-      className="md:px-16 px-8 py-6 flex flex-col mx-auto my-9 items-center gap-4 w-fit rounded-lg bg-[#FFFFFF] shadow-xl dark:text-white dark:bg-[#141624]"
+      className={`${
+        updateForm && "h-[90%] overflow-y-auto overflow-x-hidden"
+      } md:px-16 px-8 py-6 flex flex-col mx-auto my-9 items-center gap-4 w-fit rounded-lg bg-[#FFFFFF] shadow-xl dark:text-white dark:bg-[#141624]`}
       onSubmit={handleSubmit(onSubmit)}
     >
       <div className="flex flex-col gap-2 justify-center items-center mb-2">
-        <h3 className="font-semibold text-2xl">SignUp Form</h3>
-        <p>Create your account to get started!</p>
+        <h3 className="font-semibold text-2xl">
+          {updateForm ? "Update Profile Form" : "SignUp Form"}
+        </h3>
+        <p>
+          {updateForm
+            ? "You can tell us more about you!"
+            : "Create your account to get started!"}
+        </p>
       </div>
 
       <div>
@@ -118,60 +127,121 @@ const SignUpPage = () => {
         )}
       </div>
 
-      <div>
-        <Label htmlFor="password">Password</Label>
-        <Input
-          type="text"
-          id="password"
-          placeholder="Enter password"
-          {...register("password", {
-            required: "Password is required",
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters",
-            },
-          })}
-          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
-        />
-        {errors?.password?.message && (
-          <InputError error={errors.password.message} />
-        )}
-      </div>
-
-      <div>
-        <Label htmlFor="confirmPassword">Confirm Password</Label>
-        <Input
-          type="password"
-          id="confirmPassword"
-          placeholder="Confirm password"
-          {...register("confirmPassword", {
-            required: "Password is required",
-            minLength: {
-              value: 8,
-              message: "Password must be at least 8 characters",
-            },
-            validate: (value) => value === password || "Passwords do not match",
-          })}
-          className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
-        />
-        {errors?.confirmPassword?.message && (
-          <InputError error={errors.confirmPassword.message} />
-        )}
-      </div>
-
-      <div className="w-full flex items-center justify-center flex-col my-4">
-        <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
-          {mutation.isPending ? (
-            <>
-              {" "}
-              <SmallSpinner />
-              <SmallText message={"Creating user..."} />
-            </>
-          ) : (
-            <SmallText message={"Signup"} />
+      {updateForm && (
+        <div>
+          <Label htmlFor="job_title">Job Title</Label>
+          <Input
+            type="text"
+            id="job_title"
+            placeholder="Enter Job Title"
+            {...register("job_title", {
+              required: "Job title is required",
+              minLength: {
+                value: 3,
+                message: "Your job title must be at least 3 characters",
+              },
+            })}
+            className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
+          />
+          {errors?.job_title?.message && (
+            <InputError error={errors.job_title.message} />
           )}
-        </button>
-        <p className="text-[14px] mt-4">Already have an account? Login</p>
+        </div>
+      )}
+
+      {updateForm && (
+        <div>
+          <Label htmlFor="bio">Bio</Label>
+          <Textarea
+            id="bio"
+            placeholder="Tell us more about you"
+            {...register("bio", {
+              required: "Bio is required",
+              minLength: {
+                value: 10,
+                message: "The bio must be at least 10 characters",
+              },
+            })}
+            className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[180px] w-[300px] text-justify"
+          />
+          {errors?.bio?.message && <InputError error={errors.bio.message} />}
+        </div>
+      )}
+
+      {updateForm || (
+        <div>
+          <Label htmlFor="password">Password</Label>
+          <Input
+            type="text"
+            id="password"
+            placeholder="Enter password"
+            {...register("password", {
+              required: "Password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters",
+              },
+            })}
+            className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
+          />
+          {errors?.password?.message && (
+            <InputError error={errors.password.message} />
+          )}
+        </div>
+      )}
+
+      {updateForm || (
+        <div>
+          <Label htmlFor="confirmPassword">Confirm Password</Label>
+          <Input
+            type="password"
+            id="confirmPassword"
+            placeholder="Confirm password"
+            {...register("confirmPassword", {
+              required: "Password is required",
+              minLength: {
+                value: 8,
+                message: "Password must be at least 8 characters",
+              },
+              validate: (value) =>
+                value === password || "Passwords do not match",
+            })}
+            className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-[300px]"
+          />
+          {errors?.confirmPassword?.message && (
+            <InputError error={errors.confirmPassword.message} />
+          )}
+        </div>
+      )}
+      <div className="w-full flex items-center justify-center flex-col my-4">
+        {updateForm ? (
+          <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
+            {mutation.isPending ? (
+              <>
+                {" "}
+                <SmallSpinner />
+                <SmallText message={"Updating Info..."} />
+              </>
+            ) : (
+              <SmallText message={"Update"} />
+            )}
+          </button>
+        ) : (
+          <button className="bg-[#4B6BFB] text-white w-full py-3 px-2 rounded-md flex items-center justify-center gap-2">
+            {mutation.isPending ? (
+              <>
+                {" "}
+                <SmallSpinner />
+                <SmallText message={"Creating user..."} />
+              </>
+            ) : (
+              <SmallText message={"Signup"} />
+            )}
+          </button>
+        )}
+        {updateForm || (
+          <p className="text-[14px] mt-4">Already have an account? Login</p>
+        )}
       </div>
     </form>
   );

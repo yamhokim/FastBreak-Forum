@@ -1,6 +1,5 @@
 const Modal = ({ children, toggleModal }) => {
   function handleToggleModal(e) {
-    console.log(e.target.id);
     if (e.target.id === "modal") {
       toggleModal();
     }
