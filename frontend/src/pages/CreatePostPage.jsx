@@ -19,8 +19,10 @@ import { useNavigate } from "react-router-dom";
 import SmallSpinner from "@/ui_components/SmallSpinner";
 import SmallText from "@/ui_components/SmallText";
 
-const CreatePostPage = () => {
-  const { register, handleSubmit, formState, setValue } = useForm();
+const CreatePostPage = ({ blog }) => {
+  const { register, handleSubmit, formState, setValue } = useForm({
+    defaultValues: blog ? blog : {},
+  });
   const { errors } = formState;
   const navigate = useNavigate();
   const queryClient = useQueryClient();
