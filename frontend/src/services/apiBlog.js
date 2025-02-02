@@ -96,3 +96,12 @@ export async function deleteBlog(id) {
     }
   }
 }
+
+export async function getUserInfo(username) {
+  try {
+    const response = await api.get(`get_userinfo/${username}`);
+    return response.data;
+  } catch (error) {
+    throw new Error(error.message);
+  }
+}

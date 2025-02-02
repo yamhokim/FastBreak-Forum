@@ -49,7 +49,7 @@ const App = () => {
           }
         >
           <Route index element={<HomePage />} />
-          <Route path="profile" element={<ProfilePage />} />
+          <Route path="profile/:username" element={<ProfilePage />} />
           <Route
             path="blogs/:slug"
             element={
