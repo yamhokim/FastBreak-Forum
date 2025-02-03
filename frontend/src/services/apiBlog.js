@@ -105,3 +105,17 @@ export async function getUserInfo(username) {
     throw new Error(error.message);
   }
 }
+
+export async function updateUser(data) {
+  try {
+    const response = api.put(`update_user/`, data);
+    return response.data;
+  } catch (error) {
+    if (error.response) {
+      throw new Error(
+        error?.response?.data.message || "Failed to update profile"
+      );
+    }
+    throw new Error(error.message);
+  }
+}
