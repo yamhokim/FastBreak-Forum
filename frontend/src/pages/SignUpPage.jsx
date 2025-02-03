@@ -10,7 +10,9 @@ import SmallText from "@/ui_components/SmallText";
 import { Textarea } from "@/components/ui/textarea";
 
 const SignUpPage = ({ userInfo, updateForm = false }) => {
-  const { register, handleSubmit, formState, reset, watch } = useForm();
+  const { register, handleSubmit, formState, reset, watch } = useForm({
+    defaultValues: userInfo ? userInfo : {},
+  });
   const { errors } = formState;
 
   const password = watch("password");
