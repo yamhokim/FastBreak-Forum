@@ -1,4 +1,4 @@
-import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { BrowserRouter, Route, Routes, useLocation } from "react-router-dom";
 import AppLayout from "./ui_components/AppLayout";
 import HomePage from "./pages/HomePage";
 import DetailPage from "./pages/DetailPage";
@@ -12,8 +12,16 @@ import SignUpPage from "./pages/SignUpPage";
 import CreatePostPage from "./pages/CreatePostPage";
 import LoginPage from "./pages/LoginPage";
 import ProtectedRoutes from "./ui_components/ProtectedRoutes";
-import { useEffect, useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 import { getUsername } from "./services/apiBlog";
+
+const Wrapper = ({ children }) => {
+  const location = useLocation();
+  useLayoutEffect(() => {
+    document.documentElement.scrollTo(0, 0);
+  }, [location.pathname]);
+  return children;
+};
 
 const App = () => {
   const [username, setUsername] = useState(null);
@@ -36,53 +44,55 @@ const App = () => {
 
   return (
     <BrowserRouter>
-      <Routes>
-        <Route
-          path="/"
-          element={
-            <AppLayout
-              isAuthenticated={isAuthenticated}
-              username={username}
-              setUsername={setUsername}
-              setIsAuthenticated={setIsAuthenticated}
-            />
-          }
-        >
-          <Route index element={<HomePage />} />
+      <Wrapper>
+        <Routes>
           <Route
-            path="profile/:username"
-            element={<ProfilePage authUsername={username} />}
-          />
-          <Route
-            path="blogs/:slug"
+            path="/"
             element={
-              <DetailPage
-                username={username}
+              <AppLayout
                 isAuthenticated={isAuthenticated}
-              />
-            }
-          />
-          <Route path="signup" element={<SignUpPage />} />
-          <Route
-            path="create"
-            element={
-              <ProtectedRoutes>
-                {" "}
-                <CreatePostPage isAuthenticated={isAuthenticated} />
-              </ProtectedRoutes>
-            }
-          />
-          <Route
-            path="login"
-            element={
-              <LoginPage
-                setIsAuthenticated={setIsAuthenticated}
+                username={username}
                 setUsername={setUsername}
+                setIsAuthenticated={setIsAuthenticated}
               />
             }
-          />
-        </Route>
-      </Routes>
+          >
+            <Route index element={<HomePage />} />
+            <Route
+              path="profile/:username"
+              element={<ProfilePage authUsername={username} />}
+            />
+            <Route
+              path="blogs/:slug"
+              element={
+                <DetailPage
+                  username={username}
+                  isAuthenticated={isAuthenticated}
+                />
+              }
+            />
+            <Route path="signup" element={<SignUpPage />} />
+            <Route
+              path="create"
+              element={
+                <ProtectedRoutes>
+                  {" "}
+                  <CreatePostPage isAuthenticated={isAuthenticated} />
+                </ProtectedRoutes>
+              }
+            />
+            <Route
+              path="login"
+              element={
+                <LoginPage
+                  setIsAuthenticated={setIsAuthenticated}
+                  setUsername={setUsername}
+                />
+              }
+            />
+          </Route>
+        </Routes>
+      </Wrapper>
     </BrowserRouter>
   );
 };
