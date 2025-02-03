@@ -1,7 +1,7 @@
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
-import { registerUser } from "@/services/apiBlog";
-import { useMutation } from "@tanstack/react-query";
+import { registerUser, updateUser } from "@/services/apiBlog";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { toast } from "react-toastify";
 import { useForm } from "react-hook-form";
 import SmallSpinner from "@/ui_components/SmallSpinner";
@@ -9,7 +9,9 @@ import InputError from "@/ui_components/InputError";
 import SmallText from "@/ui_components/SmallText";
 import { Textarea } from "@/components/ui/textarea";
 
-const SignUpPage = ({ userInfo, updateForm = false }) => {
+const SignUpPage = ({ userInfo, updateForm = false, toggleModal }) => {
+  const queryClient = useQueryClient();
+
   const { register, handleSubmit, formState, reset, watch } = useForm({
     defaultValues: userInfo ? userInfo : {},
   });
@@ -17,20 +19,51 @@ const SignUpPage = ({ userInfo, updateForm = false }) => {
 
   const password = watch("password");
 
+  const updateProfileMutation = useMutation({
+    mutationFn: (data) => updateUser(data),
+    onSuccess: () => {
+      toast.success("Profile updated successfully!");
+      toggleModal();
+      queryClient.invalidateQueries({
+        queryKey: ["users", userInfo?.username],
+      });
+    },
+
+    onError: (err) => {
+      toast.error(err.message);
+    },
+  });
+
   const mutation = useMutation({
     mutationFn: (data) => registerUser(data),
     onSuccess: () => {
-      toast.success("You have successfully created an account 👍");
+      toast.success("You have successfully created an account!!!");
       reset();
     },
 
-    onError: (error) => {
-      toast.error(error.message);
+    onError: (err) => {
+      toast.error(err.message);
     },
   });
 
   function onSubmit(data) {
-    mutation.mutate(data);
+    if (updateForm) {
+      const formData = new FormData();
+      formData.append("username", data.username);
+      formData.append("email", data.email);
+      formData.append("first_name", data.first_name);
+      formData.append("last_name", data.last_name);
+      formData.append("job_title", data.job_title);
+      formData.append("bio", data.bio);
+      if (data.profile_picture && data.profile_picture[0]) {
+        if (data.profile_picture[0] !== "/") {
+          formData.append("profile_picture", data.profile_picture[0]);
+        }
+      }
+      updateProfileMutation.mutate(formData);
+    } else {
+      mutation.mutate(data);
+    }
   }
 
   return (
@@ -177,7 +210,7 @@ const SignUpPage = ({ userInfo, updateForm = false }) => {
             type="file"
             id="picture"
             {...register("profile_picture", {
-              required: "Profile picture is required",
+              required: false,
             })}
             className="border-2 border-[#141624] dark:border-[#3B3C4A] focus:outline-0 h-[40px] w-full max-sm:w-[300px] max-sm:text-[14px]"
           />

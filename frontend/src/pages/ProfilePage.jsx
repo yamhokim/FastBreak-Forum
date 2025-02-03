@@ -39,7 +39,11 @@ const ProfilePage = ({ authUsername }) => {
 
       {showModal && (
         <Modal toggleModal={toggleModal}>
-          <SignUpPage userInfo={data} updateForm={true} />
+          <SignUpPage
+            userInfo={data}
+            updateForm={true}
+            toggleModal={toggleModal}
+          />
         </Modal>
       )}
     </>

@@ -9,7 +9,6 @@ from django.contrib.auth import get_user_model
 
 @api_view(["POST"])
 def register_user(request):
-	print(request.data)
 	serializer = UserRegistrationSerializer(data=request.data)
 	
 	if serializer.is_valid():

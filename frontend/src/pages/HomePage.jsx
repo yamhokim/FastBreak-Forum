@@ -15,7 +15,6 @@ const HomePage = () => {
     placeholderData: keepPreviousData,
   });
 
-  console.log(data);
   const blogs = data?.results || [];
   const numPages = Math.ceil(data?.count / blogsPerPage);
 

@@ -108,12 +108,12 @@ export async function getUserInfo(username) {
 
 export async function updateUser(data) {
   try {
-    const response = api.put(`update_user/`, data);
+    const response = await api.put(`update_user/`, data);
     return response.data;
   } catch (error) {
     if (error.response) {
       throw new Error(
-        error?.response?.data.message || "Failed to update profile"
+        error?.response?.data.username[0] || "Failed to update profile"
       );
     }
     throw new Error(error.message);

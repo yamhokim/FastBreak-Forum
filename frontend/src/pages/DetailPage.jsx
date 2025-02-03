@@ -31,8 +31,6 @@ const DetailPage = ({ username, isAuthenticated }) => {
     queryFn: () => getBlog(slug),
   });
 
-  console.log(blog);
-
   const deleteMutation = useMutation({
     mutationFn: (id) => deleteBlog(id),
     onSuccess: () => {
